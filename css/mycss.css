@@ -1,0 +1,38 @@
+.orderForm {
+    padding: 10px;
+    min-height: 200px;
+    border: 1px solid black;
+    
+    display: flex;
+    justify-content: space-between;
+}
+
+.orderForm__nomenclature,
+.orderForm__result {
+    width: 48%;
+    
+    display: flex;
+    flex-direction: column;
+}
+
+.orderForm__result {
+    order: 1;
+}
+
+.orderForm__btn-remove {
+    align-self: center;
+}
+
+.lists__custumers {
+    margin-bottom: 10px;
+}
+
+.lists__products,
+.orderForm__result-list {
+    flex-grow: 1;
+}
+
+.orderForm__sumStr,
+.wrapper_btn {
+    text-align: right;
+}

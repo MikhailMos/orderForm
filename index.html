@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Form order</title>
+    <link rel="stylesheet" href="css/mycss.css">
+</head>
+<body>
+    <main class="page-main">        
+        <form class="page-main__order orderForm" method="POST" action="">
+            <div class="orderForm__nomenclature">
+                <select name="customers" id="customers" class="lists__custumers">
+                </select>
+                <select name="products" id="products" class="lists__products" multiple="multiple">
+                </select>
+            </div>            
+            <div class="orderForm__result">
+                <select class="orderForm__result-list" name="resultOrder" id="resultOrder" multiple="multiple"></select>
+                <p class="orderForm__sumStr">Сумма: <span class="ordreForm__sum">0<e/span> руб.</p>
+                <div class="wrapper_btn">
+                    <button class="orderForm__submit" type="submit">Отправить</button>
+                </div>
+            </div>
+            <button class="orderForm__btn-remove">&#8594;</button>
+        </form>
+    
+    </main>
+
+    <!-- список клиентов -->
+    <template id="temp-item">
+        <option value=""></option>
+    </template>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
