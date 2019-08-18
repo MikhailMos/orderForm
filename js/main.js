@@ -8,7 +8,7 @@ var DATA_PRODUCT = {
     params: ''
 }
 var NAME = ['Вася', 'Коля', 'Миша', 'Алексей', 'Иван', 'Григорий', 'Андрей'];
-var SURNAME = ['Пупкин', 'Ивано', 'Никифоров', 'Тимофеев'];
+var SURNAME = ['Пупкин', 'Иванович', 'Никифоров', 'Тимофеев'];
 
 var getRandom = function (min, max) {
     return Math.floor(Math.random() * (max - min) + min);
@@ -113,11 +113,40 @@ for (var i = 0; i < countCustomers; i++) {
     dataCustomers.push(CustomerObject(400 + i));
 }
 
+var getCost = function (id) {
+    var item = dishes.find(element => {
+        if (element.id === id) {
+            return element.cost;
+        }
+    });
+
+    return item === undefined ? 0 : item.cost;
+}
+
+var removeProducts = function (evn) {
+    evn.preventDefault();
+
+    var sum = parseInt(sumStr.textContent, 10);
+    var selectedItems = Array.prototype.slice.call(productsList.selectedOptions);
+    selectedItems.forEach(element => {
+        sum += getCost(parseInt(element.value, 10));
+        resultList.appendChild(element);
+    });
+
+    sumStr.textContent = sum;
+}
+
 var orderForm = document.querySelector('.orderForm');
 var customersList = orderForm.querySelector('.lists__custumers');
 var productsList = orderForm.querySelector('.lists__products');
+var resultList = orderForm.querySelector('.orderForm__result-list');
+var removeBtn = orderForm.querySelector('.orderForm__btn-remove');
+var sendBtn = orderForm.querySelector('.orderForm__submit');
+var sumStr = orderForm.querySelector('.ordreForm__sum');
 
 var templateOption = document.querySelector('#temp-item').content.querySelector('option');
 
 renderData(dataCustomers, customersList, 'isDeleted',  templateOption);
 renderData(DATA_PRODUCT.dishes, productsList, 'deleted', templateOption);
+
+removeBtn.addEventListener('click', removeProducts);
