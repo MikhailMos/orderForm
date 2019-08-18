@@ -9,7 +9,7 @@ var DATA_PRODUCT = {
 }
 var NAME = ['Вася', 'Коля', 'Миша', 'Алексей', 'Иван', 'Григорий', 'Андрей'];
 var SURNAME = ['Пупкин', 'Иванович', 'Никифоров', 'Тимофеев'];
-
+var DEL_CODE = 46;
 var getRandom = function (min, max) {
     return Math.floor(Math.random() * (max - min) + min);
 }
@@ -123,17 +123,30 @@ var getCost = function (id) {
     return item === undefined ? 0 : item.cost;
 }
 
-var removeProducts = function (evn) {
-    evn.preventDefault();
-
+var removeItem = function (fromList, toList, isPlus) {
     var sum = parseInt(sumStr.textContent, 10);
-    var selectedItems = Array.prototype.slice.call(productsList.selectedOptions);
+    var selectedItems = Array.prototype.slice.call(fromList.selectedOptions);
     selectedItems.forEach(element => {
-        sum += getCost(parseInt(element.value, 10));
-        resultList.appendChild(element);
+        if (isPlus) {
+            sum += getCost(parseInt(element.value, 10));
+        } else {
+            sum -= getCost(parseInt(element.value, 10));
+        }
+        toList.appendChild(element);
     });
 
     sumStr.textContent = sum;
+}
+
+var removeProducts = function (evt) {
+    evt.preventDefault();
+    removeItem(productsList, resultList, true);
+}
+
+var delItem = function (evt) {
+    if (evt.keyCode === DEL_CODE) {
+        removeItem(resultList, productsList, false);
+    };
 }
 
 var orderForm = document.querySelector('.orderForm');
@@ -150,3 +163,4 @@ renderData(dataCustomers, customersList, 'isDeleted',  templateOption);
 renderData(DATA_PRODUCT.dishes, productsList, 'deleted', templateOption);
 
 removeBtn.addEventListener('click', removeProducts);
+resultList.addEventListener('keydown', delItem);
